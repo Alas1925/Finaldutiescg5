@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CG-5 Duty Rotation Generator</title>
+    <link rel="stylesheet" href="duty-rotation-generator.css">
+    <link rel="stylesheet" href="cg5-theme.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <aside class="sidebar">
+
+        <div class="identity">
+            <img src="cg5logo.jpeg" alt="CG-5 logo">
+
+            <div>
+                <strong>CG-5 Portal</strong>
+                <span>International Affairs</span>
+            </div>
+        </div>
+
+        <nav aria-label="Main navigation">
+            <a href="duty-calendar.html">
+                <span>▦</span>
+                DUTY CALENDAR
+            </a>
+
+            <a class="active" href="duty-rotation-generator.html">
+                <span>↻</span>
+                ROTATION GENERATOR
+            </a>
+        </nav>
+
+        <a class="logout" href="index.html">← Log out</a>
+
+    </aside>
+
+    <main>
+
+        <header>
+
+            <div>
+                <p class="eyebrow">CG-5 INTERNAL DUTY MANAGEMENT</p>
+
+                <h1>DUTY ROTATION<br>GENERATOR.</h1>
+
+                <p class="intro">
+                    Generate a duty rotation based on the selected starting
+                    personnel and the existing CG-5 duty rotation rules.
+                </p>
+            </div>
+
+            <div class="avatar">A</div>
+
+        </header>
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <p class="eyebrow">ROTATION SETTINGS</p>
+
+                    <h2>STARTING POINT.</h2>
+
+                    <p class="intro">
+                        Select the first personnel for each duty. The generator
+                        will determine the succeeding rotation automatically.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="form-grid" data-admin-only>
+
+                <div class="form-group">
+                    <label for="start-date">Starting Date</label>
+                    <input id="start-date" type="date" value="2026-09-28">
+                </div>
+
+                <div class="form-group">
+                    <label for="number-days">Number of Days</label>
+                    <input id="number-days" type="number" min="1" max="366" value="30">
+                </div>
+
+                <div class="form-group">
+                    <label for="starting-pow">POW Starting</label>
+                    <select id="starting-pow">
+                        <option value="">Loading personnel...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="starting-officewatch">Office Watch Starting</label>
+                    <select id="starting-officewatch">
+                        <option value="">Loading personnel...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="starting-operation">Operation Starting</label>
+                    <select id="starting-operation">
+                        <option value="">Loading personnel...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="starting-liaison">Liaison Starting</label>
+                    <select id="starting-liaison">
+                        <option value="">Loading personnel...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="starting-ood">Weekend OOD Starting</label>
+                    <select id="starting-ood">
+                        <option value="">Loading personnel...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="starting-weekend-ow">Weekend OW/OPS Starting</label>
+                    <select id="starting-weekend-ow">
+                        <option value="">Loading personnel...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="starting-weekend-liaison">Weekend Liaison Starting</label>
+                    <select id="starting-weekend-liaison">
+                        <option value="">Loading personnel...</option>
+                    </select>
+                </div>
+
+            </div>
+
+        <div class="generator-actions" data-admin-only>
+
+    <button
+        id="generate-btn"
+        class="primary-button"
+        type="button"
+    >
+        Generate Roster
+    </button>
+
+    <button
+        id="apply-btn"
+        class="apply-button"
+        type="button"
+        disabled
+    >
+        Apply to Duty Calendar
+    </button>
+
+    <button
+        id="clear-btn"
+        class="secondary-button"
+        type="button"
+    >
+        Clear
+    </button>
+
+</div>
+
+            <p id="generator-status" class="form-status"></p>
+
+        </section>
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <p class="eyebrow">GENERATED DUTY ROSTER</p>
+
+                    <h2>PREVIEW.</h2>
+
+                    <p class="intro">
+                        Review the generated rotation before connecting it to
+                        the Duty Calendar.
+                    </p>
+                </div>
+
+            </div>
+
+            <div id="roster-summary" class="roster-summary hidden"></div>
+
+            <div id="roster-preview" class="roster-preview">
+
+                <div class="empty-preview">
+                    <div class="empty-icon">↻</div>
+
+                    <h3>No roster generated</h3>
+
+                    <p>
+                        Select your starting personnel and click
+                        <strong>Generate Roster</strong>.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="access-control.js"></script>
+<script src="duty-rotation-generator.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+/* Shared CG-5 dark theme: visual-only overrides for every portal page. */
+:root {
+  color-scheme: dark;
+  --cg5-bg: #0b1220;
+  --cg5-surface: #111c2d;
+  --cg5-surface-raised: #172438;
+  --cg5-line: #2a3b50;
+  --cg5-text: #f4f7fb;
+  --cg5-muted: #b8c4d3;
+  --cg5-gold: #2AAE9B;
+  --cg5-blue: #205b7c;
+}
+
+html { background: var(--cg5-bg); }
+body { background: var(--cg5-bg) !important; color: var(--cg5-text) !important; }
+body :is(h1,h2,h3,h4,h5,h6,strong,b,label,th,td,p,span,small,li,dt,dd,legend) { color: inherit; }
+body :is(a,button,input,select,textarea) { font-family: inherit; }
+body :is(input,select,textarea) { color: var(--cg5-text); background-color: #0d1929; border-color: var(--cg5-line); }
+body :is(input,select,textarea)::placeholder { color: #98a8bb; opacity: 1; }
+body :is(input,select,textarea):focus { outline: 2px solid rgba(85,214,190,.38); border-color: var(--cg5-gold); }
+body :is(option) { color: var(--cg5-text); background: var(--cg5-surface); }
+body :is(button,a) { transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease; }
+
+/* Shared navigation and page surfaces */
+body :is(.sidebar,.identity) { background: #081321 !important; color: var(--cg5-text) !important; border-color: var(--cg5-line) !important; }
+body :is(.sidebar-brand,.sidebar-bottom,.identity) { border-color: rgba(210,225,242,.12) !important; }
+body :is(.nav-item,.sidebar nav a,.logout,.logout-btn) { color: #d7e0eb !important; }
+body :is(.nav-item:hover,.sidebar nav a:hover,.logout:hover,.logout-btn:hover) { background: #172438 !important; color: #fff !important; }
+body :is(.nav-item.active,.sidebar nav a.active) { background: rgba(85,214,190,.16) !important; color: #A8F0E2 !important; }
+body :is(.main-content,main) { color: var(--cg5-text); }
+body :is(.welcome-section,header) { background: radial-gradient(ellipse at 82% 0%, rgba(32,91,124,.27), transparent 43%), linear-gradient(120deg,#101d30,#0b1220 75%) !important; color: var(--cg5-text) !important; }
+body :is(.welcome-section h1,header h1,.section-heading h2,.direction-heading h2,.activity-content h3,.mission-card h3,.vision-card h3) { color: #f7f9fc !important; }
+body :is(.welcome-section p,.section-heading p,.direction-heading p,.activity-content p,.mission-card p,.vision-card p,.intro) { color: var(--cg5-muted) !important; }
+body :is(.content-section,.admin-tabs-section) { color: var(--cg5-text); }
+body :is(.mission-card,.vision-card,.activity-feature,.direction-section,.quick-section,.panel,.duty-details,.modal-card,.modal-content,.login-panel) { background: var(--cg5-surface) !important; color: var(--cg5-text) !important; border-color: var(--cg5-line) !important; box-shadow: 0 14px 38px rgba(0,0,0,.2) !important; }
+body :is(.footer) { background: #081321 !important; color: var(--cg5-muted) !important; border-color: var(--cg5-line) !important; }
+body :is(.footer strong) { color: var(--cg5-text) !important; }
+body :is(.section-label,.eyebrow,.activity-tag) { color: #55D6BE !important; }
+body :is(.primary-btn,.secondary-btn,.admin-primary-btn,.primary-button,#login-button,#save-special-duty,.apply-button) { background: linear-gradient(135deg,#2AAE9B,#278F84) !important; border-color: #2AAE9B !important; color: #101827 !important; }
+body :is(.primary-btn,.secondary-btn,.admin-primary-btn,.primary-button,#login-button,.apply-button):hover { background: #55D6BE !important; color: #101827 !important; }
+body :is(.secondary-button,.table-action-btn,.personnel-edit,#cancel-special-duty,.modal-close,#close-special-duty) { background: #172438 !important; border-color: var(--cg5-line) !important; color: #e9eef5 !important; }
+body :is(.admin-tabs) { border-color: var(--cg5-line) !important; }
+body :is(.admin-tab) { color: var(--cg5-muted) !important; }
+body :is(.admin-tab:hover,.admin-tab.active) { color: #A8F0E2 !important; }
+body :is(.admin-tab.active) { border-bottom-color: var(--cg5-gold) !important; }
+body :is(.admin-panel-header h2,.panel-header h2,.details-header h3,.detail-value,.detail-date,.modal-header h3,.special-duty-existing-title) { color: #f3f6fb !important; }
+body :is(.admin-panel-header p,.detail-label,.empty-details,.swap-note,.assignment-label,.assignment-serial,.special-duty-existing-item small,.special-duty-existing>p) { color: var(--cg5-muted) !important; }
+
+/* Tables, calendar grids, and compact detail cards */
+body :is(.admin-table-wrapper,.duty-calendar-grid,.calendar,.exemption-table-wrapper,.personnel-table-wrapper) { background: var(--cg5-surface) !important; border-color: var(--cg5-line) !important; }
+body :is(.admin-table,.exemption-table,.personnel-table) { color: var(--cg5-text) !important; }
+body :is(.admin-table th,.exemption-table th,.personnel-table th,.calendar-weekday) { background: #1a2a40 !important; color: #dbe5f0 !important; border-color: var(--cg5-line) !important; }
+body :is(.admin-table td,.exemption-table td,.personnel-table td) { color: #e2e9f2 !important; border-color: #26374c !important; }
+body :is(.admin-table tbody tr:hover,.exemption-table tbody tr:hover,.personnel-table tbody tr:hover) { background: #172438 !important; }
+body :is(.calendar-day,.duty-calendar-grid .calendar-day) { background: #111c2d !important; border-color: var(--cg5-line) !important; color: var(--cg5-text) !important; }
+body :is(.calendar-day:hover,.duty-calendar-grid .calendar-day:hover,.calendar-day.other-month,.duty-calendar-grid .calendar-day.other-month) { background: #172438 !important; }
+body :is(.day-number,.duty-person,.duty-calendar-grid .day-number,.duty-calendar-grid .duty-person) { color: #f2f5f9 !important; }
+body :is(.duty-label,.duty-calendar-grid .duty-label) { color: #b9c7d6 !important; }
+body :is(.duty-calendar-heading h3,.calendar-heading h3) { color: #f4f7fb !important; }
+body :is(.duty-calendar-heading button,.calendar-heading button) { background: #172438 !important; border-color: var(--cg5-line) !important; color: #f4f7fb !important; }
+body :is(.duty-calendar-search,.search) { background: #0d1929 !important; border-color: var(--cg5-line) !important; }
+body :is(.duty-calendar-search input,.search input) { background: transparent !important; color: #fff !important; }
+body :is(.details-header,.modal-header,.special-duty-existing,.modal-actions,.modal-footer) { border-color: var(--cg5-line) !important; }
+body :is(.modal-actions,.modal-footer,.personnel-form,.swap-note,.rotation-note) { background: #0e1928 !important; color: var(--cg5-muted) !important; }
+body :is(.modal-backdrop) { background: rgba(2,8,16,.78) !important; }
+body :is(.status-badge,.exemption-decision) { background: #1b3850 !important; color: #d8efff !important; }
+body :is(.status-badge.available) { background: #173b32 !important; color: #a8e5c5 !important; }
+body :is(.status-badge.on-leave) { background: #49301f !important; color: #ffd0a5 !important; }
+body :is(.personnel-delete) { background: #321f28 !important; border-color: #59333c !important; color: #ffb8b8 !important; }
+
+/* Login joins the same dark portal palette */
+body:has(.login-page) { background: #0b1220 !important; }
+body:has(.login-page) .login-page { background: radial-gradient(circle at center,#142940 0%,#0b1220 72%) !important; }
+body:has(.login-page) .login-panel { background: #111c2d !important; border: 1px solid var(--cg5-line); }
+body:has(.login-page) :is(.login-heading h2,.form-group label) { color: #f4f7fb !important; }
+body:has(.login-page) :is(.login-heading p:last-child,.security-note,.login-footer) { color: var(--cg5-muted) !important; }
+body:has(.login-page) .input-wrapper input { background: #0b1523 !important; border-color: var(--cg5-line) !important; color: #fff !important; }
+
+@media (max-width:700px) {
+  body :is(.sidebar,.app-shell .sidebar) { background: #081321 !important; }
+  body :is(.panel,.direction-section,.quick-section) { background: var(--cg5-surface) !important; }
+}
+
+/* Keep the month controls and rotation button inside narrow mobile screens. */
+@media (max-width:520px) {
+  body .admin-page .duty-calendar-heading,
+  body .calendar-heading {
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
+  }
+  body .admin-page .duty-calendar-heading h3,
+  body .calendar-heading h3 {
+    flex: 1 1 calc(100% - 100px);
+    min-width: 0;
+    font-size: clamp(14px, 4vw, 16px) !important;
+    white-space: nowrap;
+  }
+  body .admin-page .duty-calendar-heading > button:not(#generate-duty-btn),
+  body .calendar-heading > button:not(#generate-duty-btn) {
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+  }
+  body .admin-page .duty-calendar-heading #generate-duty-btn,
+  body .calendar-heading #generate-duty-btn {
+    flex: 0 1 205px;
+    width: 205px;
+    max-width: calc(100vw - 32px);
+    min-width: 0;
+    height: 42px;
+    margin: 4px auto 0;
+    padding: 0 14px;
+    box-sizing: border-box;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+}

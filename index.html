@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CG-5 International Affairs | Login</title>
+
+  <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="cg5-theme.css">
+</head>
+
+<body>
+
+  <main class="login-page">
+
+    <!-- LEFT BRANDING PANEL -->
+    <section class="brand-panel">
+
+      <div class="brand-content">
+
+        <div class="brand-logo">
+          <div class="logo-placeholder">
+            CG-5
+          </div>
+        </div>
+
+        <p class="brand-country">
+          PHILIPPINE COAST GUARD
+        </p>
+
+        <h1>
+          INTERNATIONAL<br>
+          AFFAIRS
+        </h1>
+
+        <div class="gold-line"></div>
+
+        <p class="brand-description">
+          Office of the Coast Guard for International Affairs
+        </p>
+
+        <div class="brand-info">
+
+          <div class="info-item">
+            <span class="info-number">01</span>
+            <div>
+              <strong>International Cooperation</strong>
+              <small>Strengthening partnerships with foreign counterparts</small>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <span class="info-number">02</span>
+            <div>
+              <strong>Strategic Engagement</strong>
+              <small>Supporting international maritime cooperation</small>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <span class="info-number">03</span>
+            <div>
+              <strong>Foreign Relations</strong>
+              <small>Coordinating international affairs of the PCG</small>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="brand-footer">
+        <span>PCG</span>
+        <span>•</span>
+        <span>CG-5</span>
+        <span>•</span>
+        <span>INTERNATIONAL AFFAIRS</span>
+      </div>
+
+    </section>
+
+
+    <!-- LOGIN PANEL -->
+    <section class="login-panel">
+
+      <div class="login-container">
+
+        <div class="login-heading">
+
+          <p class="login-eyebrow">
+            CG-5 PORTAL
+          </p>
+
+          <h2>
+            Welcome back
+          </h2>
+
+          <p>
+            Sign in to access the International Affairs Portal.
+          </p>
+
+        </div>
+
+        <form id="login-form">
+
+          <!-- EMAIL -->
+          <div class="form-group">
+
+            <label for="email">
+              EMAIL ADDRESS
+            </label>
+
+            <div class="input-wrapper">
+
+              <span class="input-icon">@</span>
+
+              <input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- PASSWORD -->
+          <div class="form-group">
+
+            <label for="password">
+              PASSWORD
+            </label>
+
+            <div class="input-wrapper">
+
+              <span class="input-icon">•</span>
+
+              <input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              >
+
+              <button
+                type="button"
+                id="toggle-password"
+                class="password-toggle"
+                aria-label="Show password"
+              >
+                SHOW
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- STATUS -->
+          <div
+            id="login-status"
+            class="login-status"
+          ></div>
+
+
+          <!-- LOGIN BUTTON -->
+          <button
+            id="login-button"
+            type="submit"
+          >
+            <span id="login-button-text">
+              SIGN IN
+            </span>
+          </button>
+
+        </form>
+
+
+        <!-- SECURITY -->
+        <div class="security-note">
+
+          <span class="security-icon">
+            ●
+          </span>
+
+          <span>
+            Authorized personnel only
+          </span>
+
+        </div>
+
+
+        <!-- FOOTER -->
+        <div class="login-footer">
+
+          <p>
+            Philippine Coast Guard
+          </p>
+
+          <span>
+            Office of the Coast Guard for International Affairs
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="login.js"></script>
+
+</body>
+</html>

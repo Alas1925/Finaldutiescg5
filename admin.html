@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CG-5 Admin</title>
+<link rel="stylesheet" href="dashboard.css?v=20261014-admin-compact-1">
+<style>
+.admin-tabs-section{max-width:1180px;margin:auto;padding:22px 35px 30px}.admin-tabs{display:flex;gap:4px;border-bottom:1px solid #d7e2e7;margin-bottom:16px;overflow-x:auto}.admin-tab{flex-shrink:0;border:0;background:0;padding:10px 18px;color:#61727c;font:600 14px inherit;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}.admin-tab:hover,.admin-tab.active{color:#003B5C}.admin-tab.active{border-bottom-color:#005B82}.admin-tab-panel{display:none}.admin-tab-panel.active{display:block}
+.admin-panel-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px}.admin-panel-header h2,.panel-header h2{margin:0 0 5px;color:#12313f;font-size:19px}.admin-panel-header p{margin:0;color:#71818a;font-size:13px}
+.admin-primary-btn,.primary-button{border:1px solid #005B82;border-radius:8px;padding:11px 16px;background:#005B82;color:#fff;font:700 13px inherit;cursor:pointer;white-space:nowrap}.admin-primary-btn:hover,.primary-button:hover{background:#003B5C}.secondary-button{border:1px solid #cbd9df;border-radius:7px;padding:10px 15px;background:#fff;color:#005B82;font:700 12px inherit;cursor:pointer}.secondary-button:hover{background:#f4f8fa}
+.admin-table-wrapper{width:100%;overflow-x:auto;background:#fff;border:1px solid #dce6ea;border-radius:10px}.admin-table{width:100%;border-collapse:collapse;min-width:700px}.admin-table th{padding:13px 15px;text-align:left;background:#f4f8fa;color:#526771;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border-bottom:1px solid #dce6ea}.admin-table td{padding:14px 15px;color:#344b56;font-size:14px;border-bottom:1px solid #edf1f3}.admin-table tbody tr:last-child td{border:0}.status-badge.available{display:inline-flex;padding:5px 9px;border-radius:20px;background:#e8f5ed;color:#28734a;font-size:12px;font-weight:700}.table-action-btn{border:1px solid #cbd9df;background:#fff;color:#005B82;border-radius:6px;padding:6px 11px;font:700 12px inherit;cursor:pointer}
+.duty-calendar-panel{width:100%}.duty-calendar-tools{display:flex;align-items:center;margin-bottom:18px}.duty-calendar-search{width:min(100%,360px);height:38px;display:flex;align-items:center;gap:8px;padding:0 12px;border:1px solid #d3e1d6;border-radius:7px;background:#fff}.duty-calendar-search span{color:#005B82;font-size:18px}.duty-calendar-search input{width:100%;border:0;outline:0;background:transparent;color:#24352b}
+.duty-calendar-heading{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:18px}.duty-calendar-heading h3{min-width:170px;margin:0;text-align:center;color:#102a43;font-size:17px}.duty-calendar-heading button{width:32px;height:32px;padding:0;border:1px solid #d8e4ea;border-radius:7px;background:#fff;color:#005B82;font-size:20px;cursor:pointer}.duty-calendar-heading button:disabled{opacity:.4;cursor:not-allowed}
+.duty-calendar-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}.duty-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid #d8e4ea;border-left:1px solid #d8e4ea;background:#fff}.duty-calendar-grid .calendar-weekday{min-height:34px;display:flex;align-items:center;justify-content:center;background:#f4f8fa;border-right:1px solid #d8e4ea;border-bottom:1px solid #d8e4ea;color:#005B82;font-size:9px;font-weight:800}.duty-calendar-grid .calendar-day{min-height:86px;padding:6px 7px;border-right:1px solid #d8e4ea;border-bottom:1px solid #d8e4ea;background:#fff;cursor:pointer}.duty-calendar-grid .calendar-day:hover{background:#fafcfc}.duty-calendar-grid .calendar-day.other-month{background:#fafcfa}.duty-calendar-grid .calendar-day.today{box-shadow:inset 0 0 0 1.5px #005B82}.duty-calendar-grid .calendar-day.selected{box-shadow:inset 0 0 0 1.5px #2AAE9B}.duty-calendar-grid .day-number{display:block;margin-bottom:4px;color:#24352b;font-size:10px;font-weight:800}.duty-calendar-grid .duty-entry{margin-top:3px;padding:2px 3px;color:#24352b;font-size:8px;font-weight:600;line-height:1.35;overflow:hidden}.duty-calendar-grid .duty-label{color:#68756d;font-weight:800}.duty-calendar-grid .duty-person{color:#24352b}
+.duty-calendar-side{display:flex;flex-direction:column;gap:18px}.duty-details{padding:20px;border:1px solid #e1e7eb;border-radius:11px;background:#fff;box-shadow:0 5px 18px rgba(16,42,67,.04)}.details-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-bottom:14px;border-bottom:1px solid #e1e8e3}.details-header h3{margin:5px 0 0;color:#102a43;font-size:18px}.status-badge{padding:5px 8px;border-radius:5px;background:#eaf4f8;color:#005B82;font-size:10px;font-weight:800}.duty-details-content{padding:17px 0}.empty-details{color:#7b8780;font-size:13px;line-height:1.6}.detail-date{margin:0 0 16px;color:#005B82;font-size:15px;font-weight:800}.detail-block{margin-bottom:16px}.detail-label{margin:0 0 4px;color:#7a877f;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}.detail-value{margin:0;color:#1d3025;font-size:14px;font-weight:700;line-height:1.45}
+.exemptions-panel,.personnel-panel{margin-top:20px}.swap-information{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}.swap-note{padding:10px 12px;border-radius:7px;background:#f4f8fa;color:#56655c;font-size:11px;line-height:1.5}.exemption-table-wrapper,.personnel-table-wrapper{width:100%;overflow-x:auto}.exemption-table,.personnel-table{width:100%;border-collapse:collapse}.exemption-table th,.exemption-table td,.personnel-table th,.personnel-table td{padding:11px 13px;border-bottom:1px solid #d8e4ea;text-align:left;vertical-align:middle}.exemption-table th,.personnel-table th{background:#f4f8fa;color:#526771;font-size:11px;font-weight:700;text-transform:uppercase;white-space:nowrap}.exemption-table td,.personnel-table td{color:#344b56;font-size:12px}.exemption-decision{display:inline-flex;padding:5px 8px;border-radius:5px;background:#eaf4f8;color:#005B82;font-size:10px;font-weight:700}
+.personnel-form{margin-bottom:24px;padding:20px;border:1px solid #d8e4ea;border-radius:11px;background:#f7faf8}.personnel-form.hidden{display:none}.form-row{display:grid;grid-template-columns:.8fr 2fr;gap:16px;margin-bottom:16px}.form-group{display:flex;flex-direction:column;gap:7px}.form-group label{color:#315344;font-size:13px;font-weight:700}.form-group input,.form-group select,.form-group textarea{width:100%;min-height:38px;padding:7px 10px;border:1px solid #d3e1d6;border-radius:7px;outline:0;background:#fff;color:#1c3022;box-sizing:border-box}.form-group textarea{min-height:82px;resize:vertical}.form-group input[readonly]{background:#f4f8fa;color:#526771}.form-actions{display:flex;gap:10px;margin-top:18px}.form-status{min-height:18px;margin:12px 0 0;color:#315344;font-size:12px;font-weight:700}.personnel-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.personnel-edit,.personnel-delete{display:inline-flex;align-items:center;justify-content:center;min-height:30px;padding:5px 9px;border-radius:6px;background:#fff;cursor:pointer;font-size:11px;font-weight:700}.personnel-edit{border:1px solid #cbd9df;color:#005B82}.personnel-delete{border:1px solid #efd0cc;color:#c0392b}
+.modal{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px}.modal.hidden{display:none}.modal-backdrop{position:absolute;inset:0;background:rgba(7,29,50,.45)}.modal-card,.modal-content{position:relative;z-index:1;width:min(100%,480px);background:#fff;border:1px solid #dfe7e2;border-radius:11px;box-shadow:0 20px 50px rgba(16,42,67,.15);overflow:hidden}.modal-header{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;padding:20px;border-bottom:1px solid #e1e8e3}.modal-header h3{margin:5px 0 0;color:#102a43}.modal-close,#close-special-duty{width:30px;height:30px;border:0;background:transparent;color:#68756d;font-size:24px;cursor:pointer}.modal-body{padding:20px}.modal-body .form-group{margin-bottom:16px}.modal-actions,.modal-footer{display:flex;justify-content:flex-end;gap:10px;padding:16px 20px;margin:0;border-top:1px solid #e1e8e3;background:#fafcfb}.modal-footer button{border-radius:7px;padding:10px 15px;font:700 12px inherit;cursor:pointer}#cancel-special-duty{border:1px solid #cbd9df;background:#fff;color:#005B82}#save-special-duty{border:1px solid #005B82;background:#005B82;color:#fff}#save-special-duty:hover{background:#003B5C}.special-duty-existing{margin-top:18px;padding-top:15px;border-top:1px solid #e1e8e3}.special-duty-existing-title{margin-bottom:10px;color:#102a43;font-size:12px;font-weight:800;text-transform:uppercase}.special-duty-existing>p{margin:0;color:#7b8780;font-size:12px}.special-duty-existing-item{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:10px 0;border-bottom:1px solid #edf1f3;color:#344b56;font-size:12px;line-height:1.5}.special-duty-existing-item strong{color:#005B82}.special-duty-existing-item small{color:#7a877f}
+@media(max-width:1000px){.duty-calendar-layout{grid-template-columns:1fr}}
+@media(max-width:700px){.admin-tabs-section{padding:16px 20px 24px}.admin-tabs{margin-bottom:13px}.admin-tab{padding:9px 13px;font-size:13px}.admin-panel-header{flex-direction:column;gap:10px;margin-bottom:12px}.admin-primary-btn{width:100%}.duty-calendar-heading h3{min-width:130px;font-size:14px}.duty-calendar-grid .calendar-day{min-height:75px;padding:4px}.duty-calendar-grid .duty-entry{font-size:7px}.form-row{grid-template-columns:1fr}.exemption-table,.personnel-table{min-width:650px}.modal{padding:10px}.modal-card,.modal-content{width:100%;max-height:90vh;overflow-y:auto}}
+@media(max-width:400px){.duty-calendar-grid .calendar-weekday{font-size:8px}.duty-calendar-grid .calendar-day{min-height:68px;padding:3px}.duty-calendar-grid .day-number{font-size:10px}.duty-calendar-grid .duty-entry{font-size:6.5px}}
+.status-badge.on-leave{background:#fff1e8;color:#a4471b}.status-badge{white-space:nowrap}</style>
+    <link rel="stylesheet" href="cg5-theme.css?v=20261014-admin-compact-1">
+</head>
+
+<body>
+
+<aside class="sidebar">
+<div class="sidebar-brand">
+<div class="brand-logo">CG-5</div>
+<div class="brand-text"><strong>PHILIPPINE</strong><strong>COAST GUARD</strong><span>INTERNATIONAL AFFAIRS</span></div>
+</div>
+
+<nav class="sidebar-nav">
+<a href="duty-calendar.html" class="nav-item"><span class="nav-icon">▦</span><span>Duty Calendar</span></a>
+<a href="admin.html" class="nav-item active"><span class="nav-icon">▣</span><span>Admin</span></a>
+</nav>
+
+<div class="sidebar-bottom">
+<button id="logoutBtn" class="logout-btn" type="button"><span class="nav-icon">↪</span><span>Logout</span></button>
+</div>
+</aside>
+
+<main class="main-content admin-page">
+<section class="page-section">
+
+<div class="admin-tabs-section">
+
+<div class="admin-tabs" role="tablist">
+<button type="button" class="admin-tab active" data-tab="duty-calendar" role="tab" aria-selected="true">Duty</button>
+
+<button type="button" class="admin-tab" data-tab="leave" role="tab" aria-selected="false">Leave Monitoring</button>
+<button type="button" class="admin-tab" data-tab="personnel" role="tab" aria-selected="false">Personnel Status</button>
+</div>
+
+<div id="personnel" class="admin-tab-panel" role="tabpanel">
+<div class="admin-panel-header">
+<div><span class="section-label">PERSONNEL</span><h2>Personnel Status</h2><p>Personnel records and current availability.</p></div>
+<button id="admin-add-personnel-btn" type="button" class="admin-primary-btn" data-admin-only>+ Add Personnel</button>
+</div>
+<div class="admin-table-wrapper">
+<table class="admin-table">
+<thead><tr><th>Serial</th><th>Rank/Fullname</th><th>Designation</th><th>Status</th><th>Desk</th></tr></thead>
+<tbody id="admin-personnel-list"><tr><td colspan="5">Loading personnel...</td></tr></tbody>
+</table>
+</div>
+</div>
+
+<div id="leave" class="admin-tab-panel" role="tabpanel">
+<div class="admin-panel-header">
+<div><span class="section-label">PERSONNEL MANAGEMENT</span><h2>Leave Monitoring</h2><p>Review leave requests and approve or reject them.</p></div>
+<button id="admin-add-leave-btn" type="button" class="admin-primary-btn" data-admin-only>+ Add Leave</button>
+</div>
+<div class="admin-table-wrapper">
+<table class="admin-table">
+<thead><tr><th>Serial / Personnel</th><th>Leave Dates</th><th>Reason</th><th>Status</th><th>Action</th></tr></thead>
+<tbody id="admin-leave-list"><tr><td colspan="5">Loading leave records...</td></tr></tbody>
+</table>
+</div>
+</div>
+
+<div id="duty-calendar-panel" class="admin-tab-panel active" role="tabpanel">
+
+<div class="duty-calendar-panel">
+
+<div class="admin-panel-header">
+<div><h2>Duty Calendar</h2><p>Manage duty assignments, exemptions, personnel, and duty schedules.</p></div>
+</div>
+
+<div class="duty-calendar-tools">
+<div class="duty-calendar-search"><span>⌕</span><input id="duty-search" type="text" placeholder="Search duty..."></div>
+</div>
+
+<div class="duty-calendar-heading">
+<button id="previous-month" type="button">‹</button>
+<h3 id="calendar-month">September 2026</h3>
+<button id="next-month" type="button">›</button>
+</div>
+
+<div class="duty-calendar-layout">
+
+<div>
+<div id="duty-calendar" class="duty-calendar-grid"></div>
+</div>
+
+<div class="duty-calendar-side">
+
+<section id="duty-details" class="duty-details">
+<div class="details-header">
+<div><span class="section-label">DETAILS</span><h3>Duty Details</h3></div>
+<span id="duty-status" class="status-badge">Select</span>
+</div>
+<div id="duty-details-content" class="duty-details-content">
+<p class="empty-details">Select a duty from the calendar to view its details.</p>
+</div>
+</section>
+
+</div>
+</div>
+
+<section class="panel exemptions-panel">
+<span class="section-label">DUTY EXEMPTIONS</span>
+<h2>Exemptions</h2>
+<div id="swap-information" class="swap-information"></div>
+<div class="exemption-table-wrapper">
+<table class="exemption-table">
+<thead><tr><th>Personnel</th><th>Reason</th><th>Start</th><th>End</th><th>Decision</th><th>Action</th></tr></thead>
+<tbody id="exemption-list"></tbody>
+</table>
+</div>
+</section>
+
+<section class="panel personnel-panel">
+
+<div class="panel-header">
+<div><span class="section-label">PERSONNEL</span><h2>Duty Management</h2></div>
+<button id="add-personnel-btn" data-admin-only type="button" class="primary-button">+ Add Personnel</button>
+</div>
+
+<form id="personnel-form" class="personnel-form hidden">
+
+<div class="form-row">
+<div class="form-group"><label for="personnel-serial">Serial</label><input id="personnel-serial" type="text"></div>
+<div class="form-group"><label for="personnel-name">Name</label><input id="personnel-name" type="text"></div>
+</div>
+
+<div class="form-row">
+<div class="form-group">
+<label for="personnel-duty">Duty</label>
+<select id="personnel-duty">
+<option value="">Select Duty</option>
+<option value="Duty OOD">Duty OOD</option>
+<option value="Duty POW">Duty POW</option>
+<option value="Duty Officewatch">Duty Officewatch</option>
+<option value="Duty Operation">Duty Operation</option>
+<option value="Duty Liaison">Duty Liaison</option>
+<option value="Duty Officewatch/Operation">Duty Officewatch/Operation</option>
+<option value="Duty Officewatch/Operation/Liaison">Duty Officewatch/Operation/Liaison</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="personnel-desk">Desk</label>
+<select id="personnel-desk">
+<option value="">Select Desk</option>
+<option>Admin</option>
+<option>Logistics</option>
+<option>D1</option>
+<option>D2</option>
+<option>D3</option>
+<option>D4</option>
+<option>D5</option>
+<option>PCC</option>
+</select>
+</div>
+</div>
+
+<div class="form-actions">
+<button id="save-personnel-btn" data-admin-only type="submit" class="primary-button">Save Personnel</button>
+<button id="cancel-personnel" type="button" class="secondary-button">Cancel</button>
+</div>
+
+<p id="personnel-status" class="form-status"></p>
+</form>
+
+<div class="personnel-table-wrapper">
+<table class="personnel-table">
+<thead><tr><th>Serial</th><th>Name</th><th>Duty</th><th>Desk</th><th>Action</th></tr></thead>
+<tbody id="personnel-list"></tbody>
+</table>
+</div>
+
+</section>
+
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<footer class="footer">
+<div><strong>PHILIPPINE COAST GUARD</strong><span>Office of International Affairs — CG-5</span></div>
+<div>CG-5 Internal Portal</div>
+</footer>
+
+</main>
+
+<div id="admin-personnel-modal" class="modal hidden">
+<div class="modal-backdrop" data-close-admin-personnel></div>
+<div class="modal-card">
+<div class="modal-header"><div><span class="section-label">PERSONNEL RECORD</span><h3 id="admin-personnel-modal-title">Add Personnel</h3></div><button type="button" class="modal-close" data-close-admin-personnel>×</button></div>
+<form id="admin-personnel-form">
+<div class="modal-body">
+<input id="admin-personnel-id" type="hidden">
+<div class="form-row">
+<div class="form-group"><label for="admin-personnel-serial">Serial</label><input id="admin-personnel-serial" type="text" required></div>
+<div class="form-group"><label for="admin-personnel-fullname">Rank/Fullname</label><input id="admin-personnel-fullname" type="text" required></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label for="admin-personnel-designation">Designation</label><input id="admin-personnel-designation" type="text" required></div>
+<div class="form-group"><label for="admin-personnel-desk">Desk</label><select id="admin-personnel-desk"><option value="">Select Desk</option><option>Executive Division</option><option>Admin</option><option>Operation</option><option>Protocol</option><option>Logisitics</option><option>Desk 1</option><option>Desk 2</option><option>Desk 3</option><option>Desk 4</option><option>Desk 5</option></select></div>
+</div>
+<div class="form-group"><label for="admin-personnel-status">Status</label><input id="admin-personnel-status" type="text" required></div>
+<p id="admin-personnel-message" class="form-status"></p>
+</div>
+<div class="modal-actions"><button type="submit" class="primary-button">Save Personnel</button><button type="button" class="secondary-button" data-close-admin-personnel>Cancel</button></div>
+</form>
+</div>
+</div>
+
+<div id="admin-leave-modal" class="modal hidden">
+<div class="modal-backdrop" data-close-admin-leave></div>
+<div class="modal-card">
+<div class="modal-header"><div><span class="section-label">LEAVE MONITORING</span><h3>Add Leave</h3></div><button type="button" class="modal-close" data-close-admin-leave>×</button></div>
+<form id="admin-leave-form">
+<div class="modal-body">
+<div class="form-group"><label for="admin-leave-personnel">Personnel</label><select id="admin-leave-personnel" required><option value="">Select Personnel</option></select></div>
+<div class="form-row">
+<div class="form-group"><label for="admin-leave-start">Start Date</label><input id="admin-leave-start" type="date" required></div>
+<div class="form-group"><label for="admin-leave-end">End Date</label><input id="admin-leave-end" type="date" required></div>
+</div>
+<div class="form-group"><label for="admin-leave-reason">Reason</label><textarea id="admin-leave-reason" required></textarea></div>
+<p id="admin-leave-message" class="form-status"></p>
+</div>
+<div class="modal-actions"><button type="submit" class="primary-button">Save Leave Request</button><button type="button" class="secondary-button" data-close-admin-leave>Cancel</button></div>
+</form>
+</div>
+</div>
+
+<div id="exemption-modal" class="modal hidden">
+
+<div class="modal-backdrop" id="close-exemption"></div>
+
+<div class="modal-card">
+
+<div class="modal-header">
+<div><span class="section-label">DUTY EXEMPTION</span><h3>Exemption Request</h3></div>
+<button type="button" class="modal-close">×</button>
+</div>
+
+<div class="modal-body">
+
+<div class="form-group">
+<label for="exemption-personnel">Personnel</label>
+<input id="exemption-personnel" type="text" readonly>
+</div>
+
+<div class="form-group">
+<label for="exemption-reason">Reason</label>
+<textarea id="exemption-reason"></textarea>
+</div>
+
+<div class="form-row">
+<div class="form-group"><label for="exemption-start">Start</label><input id="exemption-start" type="date"></div>
+<div class="form-group"><label for="exemption-end">End</label><input id="exemption-end" type="date"></div>
+</div>
+
+<div class="form-group">
+<label for="exemption-decision">Decision</label>
+<select id="exemption-decision">
+<option>Next in line</option>
+</select>
+</div>
+
+<p id="exemption-status" class="form-status"></p>
+
+</div>
+
+<div class="modal-actions">
+<button id="save-exemption" data-admin-only type="button" class="primary-button">Save</button>
+<button id="cancel-exemption" type="button" class="secondary-button">Cancel</button>
+</div>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="access-control.js?v=20261016-user-hide-generate-1"></script>
+<script src="duty-calendar.js"></script>
+
+<script>
+const adminTabs=document.querySelectorAll(".admin-tab"),adminPanels=document.querySelectorAll(".admin-tab-panel");
+
+function activateAdminTab(target){
+    adminTabs.forEach(t=>{
+        const active=t.dataset.tab===target;
+        t.classList.toggle("active",active);
+        t.setAttribute("aria-selected",active);
+    });
+
+    adminPanels.forEach(p=>{
+        p.classList.toggle("active",p.id===target||(p.id==="duty-calendar-panel"&&target==="duty-calendar"));
+    });
+}
+
+adminTabs.forEach(t=>t.addEventListener("click",()=>{
+    const target=t.dataset.tab;
+    activateAdminTab(target);
+    if(target==="personnel")loadAdminPersonnel();
+    if(target==="leave"){
+        loadAdminPersonnel();
+        loadAdminLeaves();
+    }
+    history.replaceState(null,"",target==="duty-calendar"?"#duty-calendar":location.pathname);
+}));
+
+if(location.hash==="#duty-calendar")activateAdminTab("duty-calendar");
+
+const adminSupabaseClient=window.cg5Supabase||window.supabase.createClient(
+    "https://qxiufjlserfxgblftieb.supabase.co",
+    "sb_publishable_H0hMUqF1YM5rUT9cdLAqJA_qiQfNznA"
+);
+
+const adminPersonnelList=document.getElementById("admin-personnel-list");
+const adminLeaveList=document.getElementById("admin-leave-list");
+let adminPersonnelRecords=[];
+
+function adminEscape(value){
+    return String(value??"").replace(/[&<>"']/g,char=>({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        "\"":"&quot;",
+        "'":"&#39;"
+    })[char]);
+}
+
+function adminSchemaMessage(){
+    return 'Supabase setup is needed. Run supabase-admin-status.sql in the project SQL Editor.';
+}
+
+function adminDate(value){
+    if(!value)return "—";
+    return new Date(`${value}T00:00:00`).toLocaleDateString("en-PH",{
+        month:"short",
+        day:"numeric",
+        year:"numeric"
+    });
+}
+
+function populateLeavePersonnel(){
+    const select=document.getElementById("admin-leave-personnel");
+    if(!select)return;
+
+    const previous=select.value;
+    select.innerHTML='<option value="">Select Personnel</option>'+
+        adminPersonnelRecords.map(person=>
+            `<option value="${adminEscape(person.id)}">${adminEscape(person.serial)} — ${adminEscape(person.rank_fullname)}</option>`
+        ).join("");
+
+    if(adminPersonnelRecords.some(person=>String(person.id)===previous))
+        select.value=previous;
+}
+
+async function loadAdminPersonnel(){
+    if(!adminPersonnelList)return;
+
+    adminPersonnelList.innerHTML='<tr><td colspan="5">Loading personnel...</td></tr>';
+
+    const{data,error}=await adminSupabaseClient
+        .from("admin_personnel_current")
+        .select("id, serial, rank_fullname, designation, status, base_status, desk")
+        .order("serial");
+
+    if(error){
+        console.error("Personnel status loading error:",error);
+        adminPersonnelList.innerHTML=`<tr><td colspan="5">${adminSchemaMessage()}</td></tr>`;
+        adminPersonnelRecords=[];
+        populateLeavePersonnel();
+        return;
+    }
+
+    adminPersonnelRecords=data||[];
+    populateLeavePersonnel();
+
+    if(!adminPersonnelRecords.length){
+        adminPersonnelList.innerHTML='<tr><td colspan="5">No personnel records yet.</td></tr>';
+        return;
+    }
+
+    adminPersonnelList.innerHTML=adminPersonnelRecords.map(person=>`
+        <tr>
+            <td>${adminEscape(person.serial)}</td>
+            <td>${adminEscape(person.rank_fullname)}</td>
+            <td>${adminEscape(person.designation)}</td>
+            <td><span class="status-badge ${person.status==="On Leave"?"on-leave":"available"}">${adminEscape(person.status)}</span></td>
+            <td>${adminEscape(person.desk)}
+                <div class="personnel-actions">
+                                <button type="button" class="personnel-edit" data-admin-only data-admin-personnel-edit="${adminEscape(person.id)}">Edit</button>
+                <button type="button" class="personnel-delete" data-admin-only data-admin-personnel-delete="${adminEscape(person.id)}">Delete</button>
+                </div>
+            </td>
+        </tr>
+    `).join("");
+}
+
+async function loadAdminLeaves(){
+    if(!adminLeaveList)return;
+
+    adminLeaveList.innerHTML='<tr><td colspan="5">Loading leave records...</td></tr>';
+
+    const{data,error}=await adminSupabaseClient
+        .from("admin_leave_monitoring")
+        .select("id, personnel_id, start_date, end_date, reason, status, personnel:admin_personnel_status(serial, rank_fullname)")
+        .order("start_date",{ascending:false});
+
+    if(error){
+        console.error("Leave records loading error:",error);
+        adminLeaveList.innerHTML=`<tr><td colspan="5">${adminSchemaMessage()}</td></tr>`;
+        return;
+    }
+
+    if(!data?.length){
+        adminLeaveList.innerHTML='<tr><td colspan="5">No leave records yet.</td></tr>';
+        return;
+    }
+
+    adminLeaveList.innerHTML=data.map(leave=>{
+        const person=Array.isArray(leave.personnel)?leave.personnel[0]:leave.personnel;
+        const actions=leave.status==="Pending"
+            ?`<button type="button" class="table-action-btn" data-admin-only data-admin-leave-action="Approved" data-admin-leave-id="${adminEscape(leave.id)}">Approve</button> <button type="button" class="table-action-btn" data-admin-only data-admin-leave-action="Rejected" data-admin-leave-id="${adminEscape(leave.id)}">Reject</button>`
+            :leave.status==="Approved"
+                ?`<button type="button" class="table-action-btn" data-admin-only data-admin-leave-action="Cancelled" data-admin-leave-id="${adminEscape(leave.id)}">Cancel</button>`
+                :"";
+
+        return`<tr>
+            <td>${adminEscape(person?.serial||"—")} — ${adminEscape(person?.rank_fullname||"Personnel record missing")}</td>
+            <td>${adminDate(leave.start_date)} – ${adminDate(leave.end_date)}</td>
+            <td>${adminEscape(leave.reason)}</td>
+            <td><span class="status-badge ${leave.status==="Approved"?"available":""}">${adminEscape(leave.status)}</span></td>
+            <td class="personnel-actions">${actions} <button type="button" class="personnel-delete" data-admin-only data-admin-leave-delete="${adminEscape(leave.id)}">Delete</button></td>
+        </tr>`;
+    }).join("");
+}
+
+function showAdminModal(id){
+    document.getElementById(id)?.classList.remove("hidden");
+}
+
+function hideAdminModal(id){
+    document.getElementById(id)?.classList.add("hidden");
+}
+
+function openAdminPersonnel(person=null){
+    const form=document.getElementById("admin-personnel-form");
+    form.reset();
+    document.getElementById("admin-personnel-id").value=person?.id||"";
+    document.getElementById("admin-personnel-serial").value=person?.serial||"";
+    document.getElementById("admin-personnel-fullname").value=person?.rank_fullname||"";
+    document.getElementById("admin-personnel-designation").value=person?.designation||"";
+    document.getElementById("admin-personnel-status").value=person?.base_status||"";
+    document.getElementById("admin-personnel-desk").value=person?.desk||"";
+    document.getElementById("admin-personnel-modal-title").textContent=person?"Edit Personnel":"Add Personnel";
+    document.getElementById("admin-personnel-message").textContent="";
+    showAdminModal("admin-personnel-modal");
+}
+
+document.getElementById("admin-add-personnel-btn")?.addEventListener("click",async()=>{
+    if(!await window.cg5Access.requireAdmin())return;
+    openAdminPersonnel();
+});
+document.getElementById("admin-add-leave-btn")?.addEventListener("click",async()=>{
+    if(!await window.cg5Access.requireAdmin())return;
+    await loadAdminPersonnel();
+    document.getElementById("admin-leave-form").reset();
+    document.getElementById("admin-leave-message").textContent="";
+    showAdminModal("admin-leave-modal");
+});
+
+document.querySelectorAll("[data-close-admin-personnel]").forEach(button=>
+    button.addEventListener("click",()=>hideAdminModal("admin-personnel-modal"))
+);
+document.querySelectorAll("[data-close-admin-leave]").forEach(button=>
+    button.addEventListener("click",()=>hideAdminModal("admin-leave-modal"))
+);
+
+document.getElementById("admin-personnel-list")?.addEventListener("click",async event=>{
+    if(!await window.cg5Access.requireAdmin())return;
+    const editButton=event.target.closest("[data-admin-personnel-edit]");
+    const deleteButton=event.target.closest("[data-admin-personnel-delete]");
+
+    if(editButton){
+        const person=adminPersonnelRecords.find(item=>String(item.id)===editButton.dataset.adminPersonnelEdit);
+        if(person)openAdminPersonnel(person);
+        return;
+    }
+
+    if(deleteButton&&window.confirm("Delete this personnel record and its linked leave records?")){
+        const{error}=await adminSupabaseClient.from("admin_personnel_status").delete().eq("id",deleteButton.dataset.adminPersonnelDelete);
+        if(error){
+            alert(error.message);
+            return;
+        }
+        await loadAdminPersonnel();
+        await loadAdminLeaves();
+    }
+});
+
+document.getElementById("admin-leave-list")?.addEventListener("click",async event=>{
+    if(!await window.cg5Access.requireAdmin())return;
+    const actionButton=event.target.closest("[data-admin-leave-action]");
+    const deleteButton=event.target.closest("[data-admin-leave-delete]");
+
+    if(actionButton){
+        const{error}=await adminSupabaseClient
+            .from("admin_leave_monitoring")
+            .update({status:actionButton.dataset.adminLeaveAction})
+            .eq("id",actionButton.dataset.adminLeaveId);
+        if(error){
+            alert(error.message);
+            return;
+        }
+        await loadAdminLeaves();
+        await loadAdminPersonnel();
+    }else if(deleteButton&&window.confirm("Delete this leave record?")){
+        const{error}=await adminSupabaseClient
+            .from("admin_leave_monitoring")
+            .delete()
+            .eq("id",deleteButton.dataset.adminLeaveDelete);
+        if(error){
+            alert(error.message);
+            return;
+        }
+        await loadAdminLeaves();
+        await loadAdminPersonnel();
+    }
+});
+
+document.getElementById("admin-personnel-form")?.addEventListener("submit",async event=>{
+    event.preventDefault();
+    if(!await window.cg5Access.requireAdmin())return;
+    const id=document.getElementById("admin-personnel-id").value;
+    const status=document.getElementById("admin-personnel-message");
+    const payload={
+        serial:document.getElementById("admin-personnel-serial").value.trim(),
+        rank_fullname:document.getElementById("admin-personnel-fullname").value.trim(),
+        designation:document.getElementById("admin-personnel-designation").value.trim(),
+        status:document.getElementById("admin-personnel-status").value.trim(),
+        desk:document.getElementById("admin-personnel-desk").value.trim()
+    };
+
+    status.textContent="Saving...";
+    let request=adminSupabaseClient.from("admin_personnel_status");
+    request=id?request.update(payload).eq("id",id):request.insert(payload);
+    const{error}=await request;
+
+    if(error){
+        status.textContent=error.code==="23505"?"That serial number already exists.":error.message;
+        return;
+    }
+
+    hideAdminModal("admin-personnel-modal");
+    await loadAdminPersonnel();
+});
+
+document.getElementById("admin-leave-form")?.addEventListener("submit",async event=>{
+    event.preventDefault();
+    if(!await window.cg5Access.requireAdmin())return;
+    const status=document.getElementById("admin-leave-message");
+    const startDate=document.getElementById("admin-leave-start").value;
+    const endDate=document.getElementById("admin-leave-end").value;
+    if(endDate<startDate){
+        status.textContent="The end date must be on or after the start date.";
+        return;
+    }
+
+    status.textContent="Saving as Pending...";
+    const{error}=await adminSupabaseClient
+        .from("admin_leave_monitoring")
+        .insert({
+            personnel_id:document.getElementById("admin-leave-personnel").value,
+            start_date:startDate,
+            end_date:endDate,
+            reason:document.getElementById("admin-leave-reason").value.trim(),
+            status:"Pending"
+        });
+
+    if(error){
+        status.textContent=error.message;
+        return;
+    }
+
+    hideAdminModal("admin-leave-modal");
+    await loadAdminLeaves();
+});
+
+const logoutBtn=document.getElementById("logoutBtn");
+
+if(logoutBtn){
+    logoutBtn.addEventListener("click",async()=>{
+        try{
+            const{error}=await adminSupabaseClient.auth.signOut();
+            if(error){
+                console.error("Logout error:",error);
+                return;
+            }
+            location.href="index.html";
+        }catch(error){
+            console.error("Logout error:",error);
+        }
+    });
+}
+</script>
+
+</body>
+</html>

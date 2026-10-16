@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CG-5 International Affairs Portal</title>
+
+    <link rel="stylesheet" href="dashboard.css?v=20261014-home-compact-3">
+    <link rel="stylesheet" href="cg5-theme.css?v=20261014-home-compact-3">
+</head>
+
+<body>
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-logo">
+                CG-5
+            </div>
+
+            <div class="brand-text">
+                <strong>PHILIPPINE</strong>
+                <strong>COAST GUARD</strong>
+                <span>INTERNATIONAL AFFAIRS</span>
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+        <!-- NAVIGATION -->
+<nav class="sidebar-nav">
+
+    <a href="dashboard.html" class="nav-item active">
+        <span class="nav-icon">⌂</span>
+        <span>Home</span>
+    </a>
+
+    <a href="admin.html" class="nav-item">
+        <span class="nav-icon">▣</span>
+        <span>Admin</span>
+    </a>
+
+</nav>
+
+        <!-- SIDEBAR BOTTOM -->
+        <div class="sidebar-bottom">
+
+            <button id="logoutBtn" class="logout-btn">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+    <main class="main-content home-dashboard">
+    <section class="home-page-heading">
+        <h1>Duty and Personnel Monitoring</h1>
+    </section>
+
+    <section class="home-overview-grid" aria-label="Duty and leave overview">
+        <article class="home-overview-card duty-today-card">
+            <div class="home-card-heading">
+                <div>
+                    <span class="home-card-kicker">Today</span>
+                    <p class="home-card-date" id="home-today-date">Loading date...</p>
+                </div>
+                <span class="home-card-icon" aria-hidden="true">◷</span>
+            </div>
+            <h2>Duty Today</h2>
+            <div id="home-today-duty" class="home-data-list" aria-live="polite">
+                <p class="home-empty-state">Loading the calendar's actual duty roster...</p>
+            </div>
+            <iframe id="home-duty-source" class="home-duty-source" title="Duty calendar data" aria-hidden="true" tabindex="-1"></iframe>
+        </article>
+
+        <article class="home-overview-card leave-today-card">
+            <div class="home-card-heading">
+                <div>
+                    <span class="home-card-kicker">Approved leave</span>
+                    <h2>Personnel on Leave</h2>
+                </div>
+                <span class="home-card-icon" aria-hidden="true">▤</span>
+            </div>
+            <p class="home-card-date">Names and approved leave end dates</p>
+            <div id="home-leave-list" class="home-data-list" aria-live="polite">
+                <p class="home-empty-state">Loading leave records...</p>
+            </div>
+        </article>
+    </section>
+</main>
+
+
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="access-control.js"></script>
+    <script src="dashboard.js?v=20261014-home-duty-error-1"></script>
+
+</body>
+<script>
+    if (
+        new URLSearchParams(window.location.search)
+            .get("embedded") === "admin"
+    ) {
+        document.body.classList.add("admin-embedded");
+    }
+</script>
+</html>

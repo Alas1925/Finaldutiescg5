@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CG-5 Duty Calendar</title>
+    <link rel="stylesheet" href="duty-calendar.css?v=20261015-duty-range-6" />
+    <link rel="stylesheet" href="cg5-theme.css?v=20261014-home-roster">
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <aside class="sidebar">
+
+            <div class="identity">
+                <img src="cg5logo.jpeg" alt="CG-5 logo" />
+
+                <div>
+                    <strong>CG-5 Portal</strong>
+                    <span>International Affairs</span>
+                </div>
+            </div>
+
+            <nav aria-label="Main navigation">
+                <a class="active" href="duty-calendar.html">
+                    <span>▦</span>
+                    DUTY CALENDAR
+                </a>
+            </nav>
+
+            <a class="logout" href="index.html">← Log out</a>
+
+        </aside>
+
+
+        <main>
+
+            <header>
+
+                <div>
+                    <p class="eyebrow">CG-5 INTERNAL DUTY MANAGEMENT</p>
+
+                    <h1>DUTY CALENDAR.</h1>
+
+                    <p class="intro">
+                        Office Watch and Liaison duty roster.
+                    </p>
+                </div>
+
+                <div class="avatar" aria-label="Admin user">A</div>
+
+            </header>
+
+
+            <section class="panel">
+
+                <div class="calendar-tools">
+
+                    <label class="search">
+
+                        <span>⌕</span>
+
+                        <input
+                            id="duty-search"
+                            type="search"
+                            placeholder="Search personnel"
+                        />
+
+                    </label>
+
+                    <button
+                        id="generate-duty-btn" data-admin-only
+                        type="button"
+                        class="primary-button"
+                    >
+                        ⚙ Generate Duty Rotation
+                    </button>
+
+                </div>
+
+
+                <div class="calendar-heading">
+
+                    <button
+                        id="previous-month"
+                        type="button"
+                        aria-label="Previous month"
+                    >
+                        ‹
+                    </button>
+
+                    <h3 id="calendar-month">
+                        September 2026
+                    </h3>
+
+                    <button
+                        id="next-month"
+                        type="button"
+                        aria-label="Next month"
+                    >
+                        ›
+                    </button>
+
+                </div>
+
+
+                <div class="calendar-layout">
+
+                    <div
+                        class="calendar"
+                        id="duty-calendar"
+                    ></div>
+
+
+                    <div class="calendar-side-panel">
+
+<aside
+                            class="duty-details"
+                            id="duty-details"
+                        >
+
+                            <div class="details-header">
+
+                                <div>
+
+                                    <p class="eyebrow">
+                                        DUTY DETAILS
+                                    </p>
+
+                                    <h3>
+                                        Selected Date
+                                    </h3>
+
+                                </div>
+
+                                <span
+                                    id="duty-status"
+                                    class="status-badge"
+                                >
+                                    —
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="duty-details-content"
+                                id="duty-details-content"
+                            >
+
+                                <p class="empty-details">
+                                    Select a date from the calendar.
+                                </p>
+
+                            </div>
+
+                        </aside>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section class="panel exemptions-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            DUTY EXEMPTIONS
+                        </p>
+
+                        <h2>
+                            EXEMPTIONS.
+                        </h2>
+
+                        <p class="intro">
+                            Personnel exemption and duty movement information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="swap-information"
+                    class="swap-information"
+                ></div>
+
+
+                <div class="exemption-table-wrapper">
+
+                    <table class="exemption-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Name</th>
+                                <th>Reason</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Decision</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="exemption-list">
+
+                            <tr>
+
+                                <td colspan="6">
+                                    No exemptions yet.
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <section class="panel personnel-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            DUTY MANAGEMENT
+                        </p>
+
+                        <h2>
+                            PERSONNEL.
+                        </h2>
+
+                        <p class="intro">
+                            Personnel available for Duty Calendar assignment.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="secondary-button"
+                        id="add-personnel-btn" data-admin-only
+                        type="button"
+                    >
+                        + Add Personnel
+                    </button>
+
+                </div>
+
+
+                <form
+                    id="personnel-form"
+                    class="personnel-form hidden"
+                >
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="personnel-serial">
+                                Serial Number
+                            </label>
+
+                            <input
+                                id="personnel-serial"
+                                type="text"
+                                placeholder="Serial Number"
+                                required
+                            />
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="personnel-name">
+                                Full Name and Rank
+                            </label>
+
+                            <input
+                                id="personnel-name"
+                                type="text"
+                                placeholder="e.g. ASN Juan S Dela Cruz PCG"
+                                required
+                            />
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="personnel-duty">
+                                Duty
+                            </label>
+
+                            <select
+                                id="personnel-duty"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Duty
+                                </option>
+
+                                <option value="Duty OOD">
+                                    Duty OOD
+                                </option>
+
+                                <option value="Duty POW">
+                                    Duty POW
+                                </option>
+
+                                <option value="Duty Officewatch">
+                                    Duty Officewatch
+                                </option>
+
+                                <option value="Duty Operation">
+                                    Duty Operation
+                                </option>
+
+                                <option value="Duty Liaison">
+                                    Duty Liaison
+                                </option>
+
+                                <option value="Duty Officewatch/Operation">
+                                    Duty OW/OPS
+                                </option>
+
+                                <option value="Duty Officewatch/Operation/Liaison">
+                                    Duty OW/OPS/Liaison
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="personnel-desk">
+                                Desk
+                            </label>
+
+                            <select
+                                id="personnel-desk"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Desk
+                                </option>
+
+                                <option value="Admin">
+                                    Admin
+                                </option>
+
+                                <option value="Logistics">
+                                    Logistics
+                                </option>
+
+                                <option value="D1">
+                                    D1
+                                </option>
+
+                                <option value="D2">
+                                    D2
+                                </option>
+
+                                <option value="D3">
+                                    D3
+                                </option>
+
+                                <option value="D4">
+                                    D4
+                                </option>
+
+                                <option value="D5">
+                                    D5
+                                </option>
+
+                                <option value="PCC">
+                                    PCC
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            class="primary-button"
+                            id="save-personnel-btn" data-admin-only
+                            type="submit"
+                        >
+                            Save Personnel
+                        </button>
+
+                        <button
+                            class="secondary-button"
+                            id="cancel-personnel"
+                            type="button"
+                        >
+                            Cancel
+                        </button>
+
+                    </div>
+
+
+                    <p
+                        id="personnel-status"
+                        class="form-status"
+                    ></p>
+
+                </form>
+
+
+                <div class="personnel-table-wrapper">
+
+                    <table class="personnel-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Serial Number</th>
+                                <th>Full Name and Rank</th>
+                                <th>Duty</th>
+                                <th>Desk</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="personnel-list">
+
+                            <tr>
+
+                                <td colspan="5">
+                                    Loading personnel...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <div
+        class="modal hidden"
+        id="exemption-modal"
+    >
+
+        <div class="modal-backdrop"></div>
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        DUTY EXEMPTION
+                    </p>
+
+                    <h3>
+                        Add Exemption
+                    </h3>
+
+                </div>
+
+                <button
+                    id="close-exemption"
+                    type="button"
+                    class="modal-close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="form-group">
+
+                    <label for="exemption-personnel">
+                        Personnel
+                    </label>
+
+                    <input
+                        id="exemption-personnel"
+                        type="text"
+                        readonly
+                    />
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="exemption-reason">
+                        Reason
+                    </label>
+
+                    <textarea
+                        id="exemption-reason"
+                        rows="3"
+                        placeholder="e.g. Mandatory Leave"
+                        required
+                    ></textarea>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="exemption-start">
+                            Start Date
+                        </label>
+
+                        <input
+                            id="exemption-start"
+                            type="date"
+                            required
+                        />
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="exemption-end">
+                            End Date
+                        </label>
+
+                        <input
+                            id="exemption-end"
+                            type="date"
+                            required
+                        />
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="exemption-decision">
+                        Decision
+                    </label>
+
+                    <select id="exemption-decision">
+
+                        <option value="Next in line">
+                            Next in line
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <p
+                    id="exemption-status"
+                    class="form-status"
+                ></p>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    class="primary-button"
+                    id="save-exemption" data-admin-only
+                    type="button"
+                >
+                    Save Exemption
+                </button>
+
+                <button
+                    class="secondary-button"
+                    id="cancel-exemption"
+                    type="button"
+                >
+                    Cancel
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="modal hidden"
+        id="duty-generator-modal"
+    >
+
+        <div
+            class="modal-backdrop"
+            id="duty-generator-backdrop"
+        ></div>
+
+        <div class="modal-card duty-generator-modal-card">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        CG-5 DUTY MANAGEMENT
+                    </p>
+
+                    <h3>
+                        Generate Duty Rotation
+                    </h3>
+
+                    <p class="intro">
+                        Generate and apply the duty rotation directly to the calendar.
+                    </p>
+
+                </div>
+
+                <button
+                    id="close-duty-generator"
+                    type="button"
+                    class="modal-close"
+                    aria-label="Close duty generator"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="generator-start-date">
+                            Starting Date
+                        </label>
+
+                        <input
+                            id="generator-start-date"
+                            type="date"
+                        />
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="generator-days">
+                            Number of Days
+                        </label>
+
+                        <input
+                            id="generator-days"
+                            type="number"
+                            min="1"
+                            value="31"
+                        />
+
+                    </div>
+
+                </div>
+
+
+                <div class="generator-range-control">
+                    <p class="eyebrow">Officewatch and Operation Set</p>
+                    <div class="generator-range-buttons">
+                        <button type="button" class="secondary-button" data-generator-range-set="A" aria-pressed="false">Set A</button>
+                        <button type="button" class="secondary-button" data-generator-range-set="B" aria-pressed="false">Set B</button>
+                    </div>
+                    <p id="generator-range-description" class="generator-range-description"></p>
+                    <p class="generator-range-help">Junior to Senior ang pagkakasunod. Hanggang dalawang naka-duty lang bawat Desk kada araw. Kapag may conflict, susubukan ng generator na mag-swap sa katabing duty day at maglalagay ng note. Awtomatikong napipili ang unang eligible na tao sa bawat dropdown; puwede mo itong palitan.</p>
+                </div>
+
+                <div class="generator-status-panel" role="status" aria-live="polite">
+                    <p class="eyebrow">GENERATOR STATUS</p>
+                    <p id="generator-status" class="form-status">Ready to generate.</p>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="generator-pow">
+                            POW Starting
+                        </label>
+
+                        <select id="generator-pow">
+
+                            <option value="">
+                                Loading personnel...
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="generator-officewatch">
+                            Officewatch Starting (Set range)
+                        </label>
+
+                        <select id="generator-officewatch">
+
+                            <option value="">
+                                Loading personnel...
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="generator-operation">
+                            Operation Starting (Set range)
+                        </label>
+
+                        <select id="generator-operation">
+
+                            <option value="">
+                                Loading personnel...
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="generator-liaison">
+                            Liaison Starting
+                        </label>
+
+                        <select id="generator-liaison">
+
+                            <option value="">
+                                Loading personnel...
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="generator-ood">
+                            Weekend OOD Starting
+                        </label>
+
+                        <select id="generator-ood">
+
+                            <option value="">
+                                Loading personnel...
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="generator-weekend-ow">
+                            Weekend OW/OPS Starting
+                        </label>
+
+                        <select id="generator-weekend-ow">
+
+                            <option value="">
+                                Loading personnel...
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="generator-weekend-liaison">
+                            Weekend Liaison Starting
+                        </label>
+
+                        <select id="generator-weekend-liaison">
+
+                            <option value="">
+                                Loading personnel...
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group"></div>
+
+                </div>
+
+
+                <div
+                    id="generator-preview"
+                    class="generator-preview hidden"
+                >
+
+                    <div class="generator-preview-header">
+
+                        <div>
+
+                            <p class="eyebrow">
+                                GENERATED ROTATION
+                            </p>
+
+                            <h4>
+                                Preview
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="generator-preview-content"
+                        class="generator-preview-content"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    class="primary-button"
+                    id="generate-rotation-btn" data-admin-only
+                    type="button"
+                >
+                    Generate Rotation
+                </button>
+
+                <button
+                    class="primary-button"
+                    id="apply-rotation-btn" data-admin-only
+                    type="button"
+                    disabled
+                >
+                    Apply to Calendar
+                </button>
+
+                <button
+                    class="secondary-button"
+                    id="cancel-duty-generator"
+                    type="button"
+                >
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="access-control.js"></script>
+    <script src="duty-calendar.js?v=20261015-duty-range-6"></script>
+
+</body>
+</html>
